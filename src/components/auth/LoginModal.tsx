@@ -16,17 +16,19 @@ export function LoginModal({ isOpen, onClose, message = "Sign in to continue" }:
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={isRegister ? "Create Account" : "Sign In"}>
       <div className="p-4">
-        {/* Simple Form */}
+        {message && <p className="text-sm text-gray-400 text-center mb-4">{message}</p>}
+
+        {/* Email + password form */}
         <UsernamePasswordSignIn onSuccess={onClose} isRegister={isRegister} />
 
-        {/* Simple Divider */}
+        {/* Divider */}
         <div className="flex items-center my-4">
           <div className="flex-grow border-t border-gray-700"></div>
           <span className="px-2 text-sm text-gray-500">or</span>
           <div className="flex-grow border-t border-gray-700"></div>
         </div>
 
-        {/* Google Sign In */}
+        {/* Google sign in */}
         <GoogleSignIn onSuccess={onClose} />
 
         {/* Toggle Login/Register */}

@@ -10,6 +10,3 @@ export type AuthModel = {
   name?: string;
   avatar?: string;
 };
-
-// Enable Google auth with type-safe onChange handler
-pb.authStore.onChange((token, model) => {});

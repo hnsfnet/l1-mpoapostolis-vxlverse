@@ -8,8 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
   const location = useLocation();
-  const { user, logout } = useAuthStore();
-  const isAuthenticated = pb.authStore.isValid;
+  const { user, logout, isAuthenticated } = useAuthStore();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,7 +17,6 @@ export function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
-    pb.authStore.clear();
     logout();
     setIsDropdownOpen(false);
   };
