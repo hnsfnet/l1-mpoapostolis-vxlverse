@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Plus } from "lucide-react";
 import { Quest } from "../../../types";
 import { QuestItem } from "./QuestItem";
-import { QuestEditor } from "./QuestEditor";
+import { QuestDetails } from "./QuestDetails";
 
 interface QuestPanelProps {
   object: {
@@ -11,13 +11,13 @@ interface QuestPanelProps {
   onChange: (updates: Partial<{ quests?: Quest[] }>) => void;
 }
 
-type QuestTab = "story" | "requirements" | "rewards";
-
+/**
+ * Manages the list of quests on an object: add, remove, and inline-edit. The
+ * fields of an individual quest are edited by {@link QuestDetails}.
+ */
 export function QuestPanel({ object, onChange }: QuestPanelProps) {
   const [editingQuest, setEditingQuest] = useState<Quest | null>(null);
-  const [activeTab, setActiveTab] = useState<QuestTab>("story");
 
-  // Create a new quest with default values
   const addNewQuest = useCallback(() => {
     const newQuest: Quest = {
       id: `quest-${Date.now()}`,
@@ -48,21 +48,16 @@ export function QuestPanel({ object, onChange }: QuestPanelProps) {
 
     onChange({ quests: [...(object.quests || []), newQuest] });
     setEditingQuest(newQuest);
-    setActiveTab("story");
   }, [object.quests, onChange]);
 
-  // Remove quest
   const removeQuest = useCallback(
     (questId: string) => {
-      onChange({
-        quests: object.quests?.filter((q) => q.id !== questId) || [],
-      });
+      onChange({ quests: object.quests?.filter((q) => q.id !== questId) || [] });
       if (editingQuest?.id === questId) setEditingQuest(null);
     },
     [editingQuest?.id, object.quests, onChange]
   );
 
-  // Update quest
   const updateQuest = useCallback(
     (questId: string, updates: Partial<Quest>) => {
       onChange({
@@ -75,15 +70,12 @@ export function QuestPanel({ object, onChange }: QuestPanelProps) {
     [editingQuest?.id, object.quests, onChange]
   );
 
-  // Toggle quest editor view
   const toggleQuestEditor = useCallback((quest: Quest) => {
     setEditingQuest((prev) => (prev?.id === quest.id ? null : quest));
-    setActiveTab("story");
   }, []);
 
   return (
     <div className="space-y-2">
-      {/* Quest List */}
       <div className="space-y-2 overflow-hidden custom-scrollbar">
         {object.quests?.map((quest) => (
           <QuestItem
@@ -94,7 +86,7 @@ export function QuestPanel({ object, onChange }: QuestPanelProps) {
             onRemove={() => removeQuest(quest.id)}
           >
             {editingQuest?.id === quest.id && (
-              <QuestEditor quest={quest} updateQuest={updateQuest} />
+              <QuestDetails quest={quest} updateQuest={updateQuest} />
             )}
           </QuestItem>
         ))}

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import toast from "react-hot-toast";
 import { FileCode, Settings, Box, Layout } from "lucide-react";
 import { useEditorStore } from "../../stores/editorStore";
-import { QuestPanel } from "./QuestPanel";
+import { QuestPanel } from "./quest";
 import { SceneSettingsPanel } from "./SceneSettingsPanel";
 import { ObjectSettingsPanel } from "./properties/ObjectSettingsPanel";
 import { TransformPanel } from "./properties/transform";

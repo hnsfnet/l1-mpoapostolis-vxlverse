@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "../../UI/Button";
 import { ItemSelector } from "../ItemSelector";
-import { useEditorStore } from "../../../stores/editorStore";
+import { useEditorStore, useCurrentScene, useSelectedObject } from "../../../stores/editorStore";
 import { Slider } from "../../UI/slider";
 import toast from "react-hot-toast";
 
@@ -69,15 +69,12 @@ export function RequirementsPanel() {
       )}
     </div>
   );
-  // Get state from the store
-  const currentSceneId = useEditorStore((state) => state.currentSceneId);
-  const selectedObjectId = useEditorStore((state) => state.selectedObjectId);
-  const scenes = useEditorStore((state) => state.scenes);
+  // Current scene + selected object are derived by the store's selector hooks,
+  // so this panel doesn't need to know how scenes/objects are looked up.
   const updateObject = useEditorStore((state) => state.updateObject);
-
-  // Get the current scene and selected object
-  const currentScene = scenes.find((scene) => scene.id === currentSceneId);
-  const selectedObject = currentScene?.objects.find((obj) => obj.id === selectedObjectId);
+  const currentScene = useCurrentScene();
+  const selectedObject = useSelectedObject();
+  const currentSceneId = currentScene?.id ?? null;
 
   // If no scene or no selected object, don't render
   if (!currentScene || !selectedObject) return null;
