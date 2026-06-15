@@ -8,8 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
   const location = useLocation();
-  const { user, logout } = useAuthStore();
-  const isAuthenticated = pb.authStore.isValid;
+  const { user, isAuthenticated, logout } = useAuthStore();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,7 +17,6 @@ export function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
-    pb.authStore.clear();
     logout();
     setIsDropdownOpen(false);
   };
@@ -337,35 +335,35 @@ export function Header() {
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
                   to="/"
-                  className={`block px-3 py-2  text-base font-medium ${location.pathname === "/" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
+                  className={`block px-3 py-2 text-base font-medium ${location.pathname === "/" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
                   aria-current={location.pathname === "/" ? "page" : undefined}
                 >
                   Home
                 </Link>
                 <Link
                   to="/games"
-                  className={`block px-3 py-2  text-base font-medium ${location.pathname === "/games" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
+                  className={`block px-3 py-2 text-base font-medium ${location.pathname === "/games" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
                   aria-current={location.pathname === "/games" ? "page" : undefined}
                 >
                   Games
                 </Link>
                 <Link
                   to="/gallery"
-                  className={`block px-3 py-2  text-base font-medium ${location.pathname === "/gallery" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
+                  className={`block px-3 py-2 text-base font-medium ${location.pathname === "/gallery" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
                   aria-current={location.pathname === "/gallery" ? "page" : undefined}
                 >
                   Galleries
                 </Link>
                 <Link
                   to="/pricing"
-                  className={`block px-3 py-2  text-base font-medium ${location.pathname === "/pricing" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
+                  className={`block px-3 py-2 text-base font-medium ${location.pathname === "/pricing" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
                   aria-current={location.pathname === "/pricing" ? "page" : undefined}
                 >
                   Pricing
                 </Link>
                 <Link
                   to="/blog"
-                  className={`block px-3 py-2  text-base font-medium ${location.pathname === "/blog" || location.pathname.startsWith("/blog/") ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
+                  className={`block px-3 py-2 text-base font-medium ${location.pathname === "/blog" || location.pathname.startsWith("/blog/") ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
                   aria-current={
                     location.pathname === "/blog" || location.pathname.startsWith("/blog/")
                       ? "page"
@@ -376,7 +374,7 @@ export function Header() {
                 </Link>
                 <Link
                   to="/help"
-                  className={`block px-3 py-2  text-base font-medium ${location.pathname === "/help" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
+                  className={`block px-3 py-2 text-base font-medium ${location.pathname === "/help" ? "bg-blue-600/20 text-white border-l-4 border-blue-500" : "text-gray-300 hover:bg-gray-800 hover:text-white"}`}
                   aria-current={location.pathname === "/help" ? "page" : undefined}
                 >
                   Help

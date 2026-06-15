@@ -1,12 +1,12 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { pb } from "../../lib/pocketbase";
+import { useAuthStore } from "../../stores/authStore";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const isAuthenticated = pb.authStore.isValid;
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const location = useLocation();
 
   if (!isAuthenticated) {
@@ -14,7 +14,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     return (
       <Navigate
         to="/login"
-        state={{ from: location }} // Pass the location they were trying to access
+        state={{ from: location }}
         replace
       />
     );
